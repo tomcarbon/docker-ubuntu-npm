@@ -1,0 +1,18 @@
+#!/bin/bash
+echo "[DOIT] Welcome to the quicker docker builder for generic website running on localhost!"
+echo "   b to build the docker image, or"
+#echo "   r to run a docker container, or"
+echo "   m to run and also map the container's /mnt folder to host's $PWD, or"
+echo "   q to quit, "
+read -p " and hit enter: " rc
+case "$rc" in
+	b)  docker build -t generic .;;
+#        r)  echo "Running a docker container (no /mnt)"
+#		docker run -td -p 80:3000 generic;;
+        m)  echo "Running the docker container (with /mnt for dev)"
+		docker run -td -p 80:3000 -v $PWD:/mnt generic;;
+        q) exit;;
+esac
+./doit
+#Here's the command to get the byobu (or bash) prompt:
+#docker exec -it <containerid> byobu
